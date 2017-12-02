@@ -5,22 +5,11 @@ HEIGHT = 6
 
 import data_loader
 
-def get_empty(cnt, width):
-    ret = []
-    for i in xrange(cnt):
-        tmp = []
-        for j in xrange(width):
-            tmp.append(0)
-        ret.append(tmp)
-    return ret
-
 def get_train_xy():
     return data_loader.load_train_data(WIDTH, HEIGHT)
-    #return get_empty(10, WIDTH), get_empty(10, HEIGHT)
 
 def get_test_xy():
     return data_loader.load_test_data(WIDTH, HEIGHT)
-    #return get_empty(10, WIDTH), get_empty(10, HEIGHT)
     
 import tensorflow as tf
 x = tf.placeholder(tf.float32, [None, WIDTH])
