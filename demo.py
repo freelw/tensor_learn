@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*- 
 
 WIDTH = 50
-HEIGHT = 6
+HEIGHT = 2
 
 import data_loader
 

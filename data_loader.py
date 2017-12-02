@@ -2,6 +2,7 @@
 import codecs
 
 train_file_name = './train_data/train/demo/train.txt'
+#train_file_name = './train_data/train/demo/hex'
 test_file_name = './train_data/test/demo/test.txt'
 
 def get_hot1_vec(height, index):
@@ -16,13 +17,21 @@ def get_hot1_vec(height, index):
 def load_data(file_name, width, height):
     ret_x = []
     ret_y = []
+    line_no = 1
     with codecs.open(file_name, 'r', 'utf-8') as f:
         lines = f.readlines()
         for line in lines:
-            tag = int(line[0])
-            btar = bytearray(line, 'utf-8')
-            ret_x.append(list(btar[2:2+width]))
-            ret_y.append(get_hot1_vec(height, tag))
+            try:
+                tag = int(line[0])
+                btar = bytearray(line, 'utf-8')
+                x = list(btar[2:2+width])
+                for i in xrange(width-len(x)):
+                    x.append(0)
+                ret_x.append(x)
+                ret_y.append(get_hot1_vec(height, tag))
+            except Exception, e:
+                print '--------------', line_no, e
+            line_no += 1
     return ret_x, ret_y
 
 def load_train_data(width, height):
