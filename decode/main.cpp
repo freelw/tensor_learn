@@ -91,6 +91,7 @@ void calc_input(const std::string & input, int width, int height, double **W, do
     ifstream ifs(input.c_str());
     int calc_bad_req_count = 0;
     int fault_count = 0;
+    int tag_bad_count = 0;
     while (!ifs.eof()) {
         string line;
         getline(ifs, line);
@@ -106,8 +107,16 @@ void calc_input(const std::string & input, int width, int height, double **W, do
                 ++ fault_count;
             }
         }
+        if (1 == tag) {
+            ++ tag_bad_count;
+        }
     }
+
+    cout << "calc_bad_req_count : " << calc_bad_req_count << endl;
+    cout << "fault_count : " << fault_count << endl;
+    cout << "tag_bad_count : " << tag_bad_count << endl;
     cout << "fault rate : " << safe_div(fault_count, calc_bad_req_count) * 100 << "%" << endl;
+    cout << "hit rate : " << safe_div(calc_bad_req_count, tag_bad_count) * 100 << "%" << endl;
 }
 
 int main(int argc, char *argv[])
