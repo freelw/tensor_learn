@@ -34,6 +34,7 @@ print sess.run(accuracy, feed_dict={x: test_x, y_: test_y})
 
 out = open('param', 'wb')
 with sess.as_default():
+    out.write('%s %s\n' % (WIDTH, HEIGHT))
     for h in xrange(HEIGHT):
         for w in xrange(WIDTH):
             out.write('%s ' % W[w][h].eval())
