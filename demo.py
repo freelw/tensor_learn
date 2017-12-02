@@ -31,3 +31,12 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 
 test_x, test_y = get_test_xy()
 print sess.run(accuracy, feed_dict={x: test_x, y_: test_y})
+
+out = open('param', 'wb')
+with sess.as_default():
+    for h in xrange(HEIGHT):
+        for w in xrange(WIDTH):
+            out.write('%s ' % W[w][h].eval())
+        out.write('\n')
+    for h in xrange(HEIGHT):
+        out.write('%s ' % b[h].eval())
