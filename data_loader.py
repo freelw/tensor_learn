@@ -14,6 +14,18 @@ def get_hot1_vec(height, index):
             ret.append(0)
     return ret
 
+def calc_space_count(line):
+    ret = 0
+    for ch in line:
+        if ' ' == ch:
+            ret += 1
+    return ret
+
+def safe_div(a, b):
+    if 0 == b:
+        return 0
+    return a/b
+
 def load_data(file_name, width, height):
     ret_x = []
     ret_y = []
@@ -27,6 +39,12 @@ def load_data(file_name, width, height):
                 x = list(btar[2:2+width])
                 for i in xrange(width-len(x)):
                     x.append(0)
+                #space_count = calc_space_count(line[2:])
+                #len_btar = len(btar)
+                #print space_count, len_btar
+                #x.append(space_count)
+                #x.append(len(btar))
+                #x.append(safe_div(space_count, len_btar))
                 ret_x.append(x)
                 ret_y.append(get_hot1_vec(height, tag))
             except Exception, e:
