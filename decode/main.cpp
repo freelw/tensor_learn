@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include "cmdline.h"
 
 using namespace std;
 
@@ -40,11 +42,29 @@ void load_w_b(double ** & W, double * & b)
     cout << endl;
 }
 
+void calc_input(const std::string & input)
+{
+    ifstream ifs(input.c_str());
+    while (!ifs.eof()) {
+        string line;
+        getline(ifs, line);
+        cout << line << endl;
+    }
+}
+
 int main(int argc, char *argv[])
 {
+    cmdline::parser cmd_parser;
+    cmd_parser.add<std::string>("input", 'i', "input", true);
+    cmd_parser.parse_check(argc, argv);
+    std::string input = cmd_parser.get<std::string>("input");
+
+
     double **W = NULL;
     double *b = NULL;
     load_w_b(W, b);
+
+    calc_input(input);
 
     return 0;
 }
