@@ -44,12 +44,19 @@ void load_w_b(double ** & W, double * & b, int & w, int & h)
 
 void get_tag_and_vec(const string & line, int & tag, vector<double> & vec, int width)
 {
-    if ('0' == line[0]) {
-        tag = 0;
+    string str;
+    if (2 < line.length()) {
+        if ('0' == line[0]) {
+            tag = 0;
+        } else {
+            tag = 1;
+        }
+        str = line.substr(2, width);
     } else {
-        tag = 1;
+        tag = 0;
+        str = "";
     }
-    string str = line.substr(2, width);
+    
     for (int i = 0; i < (int)str.length(); ++ i) {
         vec.push_back(double(str[i]));
     }
