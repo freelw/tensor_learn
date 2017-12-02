@@ -10,13 +10,14 @@ def get_train_xy():
 
 def get_test_xy():
     return data_loader.load_test_data(WIDTH, HEIGHT)
-    
+
+VEC_WIDTH = WIDTH
 import tensorflow as tf
-x = tf.placeholder(tf.float32, [None, WIDTH])
-W = tf.Variable(tf.zeros([WIDTH,HEIGHT]))
+x = tf.placeholder(tf.float32, [None, VEC_WIDTH])
+W = tf.Variable(tf.zeros([VEC_WIDTH, HEIGHT]))
 b = tf.Variable(tf.zeros([HEIGHT]))
-y = tf.nn.softmax(tf.matmul(x,W) + b)
-y_ = tf.placeholder("float", [None,HEIGHT])
+y = tf.nn.softmax(tf.matmul(x, W) + b)
+y_ = tf.placeholder("float", [None, HEIGHT])
 cross_entropy = -tf.reduce_sum(y_*tf.log(y))
 train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 init = tf.global_variables_initializer()
@@ -36,7 +37,7 @@ out = open('param', 'wb')
 with sess.as_default():
     out.write('%s %s\n' % (WIDTH, HEIGHT))
     for h in xrange(HEIGHT):
-        for w in xrange(WIDTH):
+        for w in xrange(VEC_WIDTH):
             out.write('%s ' % W[w][h].eval())
         out.write('\n')
     for h in xrange(HEIGHT):
