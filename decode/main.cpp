@@ -110,13 +110,13 @@ void calc_input(const std::string & input, int width, int height, double **W, do
         if (0 < res[1]) {
             ++ calc_bad_req_count;
             if (0 == tag) {
-                cout << line << endl;
                 ++ fault_count;
             }
         }
         if (1 == tag) {
             ++ tag_bad_count;
         }
+        cout << "line:" << line << "|" << tag << endl;
     }
 
     cout << "calc_bad_req_count : " << calc_bad_req_count << endl;
