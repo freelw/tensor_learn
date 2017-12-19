@@ -4,9 +4,6 @@ import codecs
 train_file_name = './train_data/train/demo/train.txt'
 #train_file_name = './train_data/train/demo/hex'
 test_file_name = './train_data/test/demo/test.txt'
-window_width = 10
-magic_num = 65535
-mod_num = 10000001
 
 def get_hot1_vec(height, index):
     ret = []
@@ -17,18 +14,17 @@ def get_hot1_vec(height, index):
             ret.append(0)
     return ret
 
+def calc_space_count(line):
+    ret = 0
+    for ch in line:
+        if ' ' == ch:
+            ret += 1
+    return ret
+
 def safe_div(a, b):
     if 0 == b:
         return 0
     return a/b
-
-def hash(arr):
-    ret = 0
-    for item in arr:
-        ret += item
-        ret *= magic_num
-        ret %= mod_num
-    return ret
 
 def load_data(file_name, width, height):
     ret_x = []
@@ -40,16 +36,15 @@ def load_data(file_name, width, height):
             try:
                 tag = int(line[0])
                 btar = bytearray(line, 'utf-8')
-                _x = list(btar[2:2+width+window_width])
-
-                x = []
-                for i in xrange(width):
-                    hash_val = hash(_x[i:i+width])
-                    x.append(hash_val)
-
+                x = list(btar[2:2+width])
                 for i in xrange(width-len(x)):
                     x.append(0)
-
+                #space_count = calc_space_count(line[2:])
+                #len_btar = len(btar)
+                #print space_count, len_btar
+                #x.append(space_count)
+                #x.append(len(btar))
+                #x.append(safe_div(space_count, len_btar))
                 ret_x.append(x)
                 ret_y.append(get_hot1_vec(height, tag))
             except Exception, e:
